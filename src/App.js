@@ -1,22 +1,25 @@
-import "./App.css";
+import './App.css';
 
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 export default class App extends Component {
-  Post = e => {
+  Post = (e) => {
     e.preventDefault();
-    const file = document.getElementById("inputGroupFile01").files;
+    const file = document.getElementById('inputGroupFile01').files;
     const formData = new FormData();
 
-    formData.append("img", file[0]);
+    formData.append('img', file[0]);
 
-    fetch("http://localhost:5000/", {
-      method: "POST",
-      body: formData
-    }).then(r => {
+    fetch('http://localhost:5000/', {
+      method: 'POST',
+      body: formData,
+    }).then((r) => {
       console.log(r);
     });
     console.log(file[0]);
+    document
+      .getElementById('img')
+      .setAttribute('src', `http://localhost:5000/${file[0].name}`);
   };
   render() {
     return (
@@ -43,20 +46,23 @@ export default class App extends Component {
               </label>
             </div>
           </div>
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={this.Post()}
-          >
+          <button type="button" className="btn btn-primary" onClick={this.Post}>
             Upload
           </button>
           <img
             id="img"
             style={{
-              display: "block"
+              display: 'block',
             }}
           ></img>
         </div>
+        <img
+          id="img"
+          style={{
+            display: 'block',
+          }}
+        ></img>
+        {/* <img src={`/uploads/${img.img.path}`} /> */}
       </div>
     );
   }
